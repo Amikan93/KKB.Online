@@ -18,7 +18,7 @@ namespace KBB.Online.BLL
         public DateTime BirthDate { get; set; }
         public string IIN { get; set; }
         public string Gender { get; set; }
-        public Address AddressOfRegistation { get; set; }
+        public string AddressOfRegistation { get; set; }
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
 

@@ -9,6 +9,7 @@ namespace KBB.Online.BLL
     public class Account
     {
         public int AccountId { get; set; }
+        public int UserId { get; set; }
         public string IBAN { get; set; }
 
         private double Balance_;

@@ -35,6 +35,7 @@ namespace KBB.Online.BLL
                     }
                     else
                     {
+
                         users.Insert(user);
                     }
                 }
@@ -72,15 +73,28 @@ namespace KBB.Online.BLL
         {
             try
             {
-                var restClient = new RestClient("https://meteor.almaty.e-orda.kz/");
+                var restClient = new RestClient("https://meteor.almaty.e-orda.kz/"); //подключили базу данных
 
                 var request = new RestRequest("/ru/api-form/load-info-by-iin/?iin=" + iin + "&params[city_check] = true");
                 RestResponse response = restClient.Execute(request);
 
-               User personalData = JsonConvert.DeserializeObject<User>(response.Content);
+                if(response.ErrorException!=null) //получили данные
+                {
+                    throw new Exception("При запросе возникла ошибка: " + response.ErrorMessage, response.ErrorException);
+                }
+                else if(response.Content == "[]")
+                {
+                    throw new Exception("По введенному ИИН данных нет");
+                }
+                else 
+                {
+                    User user = JsonConvert.DeserializeObject<User>(response.Content);
 
-                message = "ok";
-                return true;
+                    return CreateUser(user.personal_data, out message);  //метод для добавяления в базу данных
+                   
+                }
+
+               //User personalData = JsonConvert.DeserializeObject<User>(response.Content);
             }
             catch (Exception ex)
             {

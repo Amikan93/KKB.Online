@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KKB.Online
+namespace KKB.Online //пространство имен
 {
     internal class Program
     {
@@ -51,7 +51,58 @@ namespace KKB.Online
                             }
                             else
                             {
-                                Console.Write("Добро пожаловать {0}", users.FirstName);
+                                Console.Clear();
+                                Console.WriteLine("Добро пожаловать {0}", users.FullName);
+
+                                Console.WriteLine("");
+                                Console.WriteLine("1. Создать счет");
+                                Console.WriteLine("2. Пополнить счет");
+                                Console.WriteLine("3. Перевести деньги со счета");
+
+                                Console.Write("Выберите пункты меню: ");
+                                ch = Convert.ToInt32(Console.ReadLine());
+
+                                AccountService accountService = new AccountService(Path);
+
+                                switch (ch)
+                                {
+                                    case 1:
+                                        {
+                                            string message_ = "";
+                                            string accountIBAN = "";
+
+                                            if (accountService.CreateAccount(users.UserId, out message_, out accountIBAN))
+                                            {
+                                                Console.WriteLine("Поздравляем Ваш счет {0} {1}", accountIBAN, message_);
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine(message);
+                                                break;
+                                            }
+                                        }
+                                    case 2:
+                                        {
+                                            List<Account> accounts = accountService.GetUserAccounts(users.UserId);
+                                            if(accounts.Count > 0)
+                                            {
+                                                foreach (var item in accounts)
+                                                {
+
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            
+                                            break;
+                                        }
+
+
+                                        
+                                        
+                                }
                             }
 
                         }
@@ -59,16 +110,17 @@ namespace KKB.Online
 
                     case 2:
                         {
-                            personal_data user = new personal_data();
-                            user.Accounts = null;
-                            user.AddressOfRegistation = null;
-                            user.BirthDate = new DateTime(1988, 01, 11);
-                            user.IIN = "880111300392";
-                            user.LastName = "Yevgeniy";
-                            user.FirstName = "Gertsen";
-                            user.Password = "123";
-                            user.PhoneNumber = "+7 777 209 43 43";
-                            user.Gender = "M";
+                            //personal_data user = new personal_data();
+                            //user.Accounts = null;
+                            //user.AddressOfRegistation = null;
+                            //user.BirthDate = new DateTime(1988, 01, 11);
+                            //user.IIN = "880111300392";
+                            //user.LastName = "Yevgeniy";
+                            //user.FirstName = "Gertsen";
+                            //user.Password = "123";
+                            //user.PhoneNumber = "+7 777 209 43 43";
+                            //user.Gender = "M";
+
                         }
                         break;
                     default:
