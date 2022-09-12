@@ -72,6 +72,27 @@ namespace KBB.Online.BLL
         public List<Account> GetUserAccounts(int userId)
         {
             List<Account> accounts = new List<Account>();
+            return accounts;
+        }
+        public bool AddBalance(int accountId, double balance)
+        {
+            try
+            {
+                using (LiteDatabase db = new LiteDatabase(Path))
+                {
+
+                    var accounts = db.GetCollection<Account>("Account");
+                    Account account = accounts.FindById(accountId);
+                    account.Balance = account.Balance + balance;
+                    accounts.Update(account);
+
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

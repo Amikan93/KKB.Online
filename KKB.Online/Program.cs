@@ -74,12 +74,14 @@ namespace KKB.Online //пространство имен
                                             if (accountService.CreateAccount(users.UserId, out message_, out accountIBAN))
                                             {
                                                 Console.WriteLine("Поздравляем Ваш счет {0} {1}", accountIBAN, message_);
+                                               
                                             }
                                             else
                                             {
                                                 Console.WriteLine(message);
-                                                break;
+
                                             }
+                                            break;
                                         }
                                     case 2:
                                         {
@@ -88,8 +90,25 @@ namespace KKB.Online //пространство имен
                                             {
                                                 foreach (var item in accounts)
                                                 {
-
+                                                    Console.WriteLine("{0}. {1} - {2} {3}", 
+                                                        item.AccountId,
+                                                        item.IBAN,
+                                                        item.Balance,
+                                                        item.GetCurrencyName);
                                                 }
+                                                Console.Write("Какой счет хотите пополнить? ");
+                                                int temp = Convert.ToInt32(Console.ReadLine());
+                                                Console.Write("На какую сумму хотите пополнить счет? ");
+                                                double balance = Convert.ToDouble(Console.ReadLine());
+                                                if(accountService.AddBalance(temp, balance))
+                                                {
+                                                    Console.WriteLine("Баланс пополнен!");
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine("Что-то пошло не так");
+                                                }
+                                                
                                             }
                                             break;
                                         }
