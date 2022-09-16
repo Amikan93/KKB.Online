@@ -146,9 +146,24 @@ namespace KKB.Online //пространство имен
                         throw new Exception("Необходимо выбрать пункт меню");
                 }
             }
-            catch
+            catch (Exception) when (ch == 0)
+            {
+                Console.WriteLine("у не должен быть рвен 0");
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            try
             {
 
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
 
             Console.WriteLine("Введите Ваш ИНН");
